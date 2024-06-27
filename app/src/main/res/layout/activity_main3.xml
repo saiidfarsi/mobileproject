@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="40dp"
+    android:background="#313439"
+    tools:context=".MainActivity2"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/addpres"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Medicines"
+        android:layout_margin="15dp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="30dp"
+        android:layout_centerHorizontal="true"/>
+
+    <EditText
+        android:id="@+id/editTextText"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/addpres"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="20dp"
+        android:ems="10"
+        android:inputType="text"
+        android:minHeight="48dp"
+        android:hint="medicine name"
+        android:textAlignment="center"
+        android:textColor="#9AFFFFFF"
+        android:textSize="20dp" />
+
+    <EditText
+        android:id="@+id/editTextDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editTextText"
+        android:layout_margin="25dp"
+        android:background="#FF3C4045"
+        android:ems="10"
+        android:inputType="number"
+        android:minHeight="48dp"
+        android:hint="Amount taken"
+        android:textColor="#9AFFFFFF" />
+
+    <Spinner
+        android:id="@+id/editTextDateEnd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editTextDate"
+        android:layout_alignParentEnd="true"
+        android:layout_marginHorizontal="25dp"
+        android:background="#FF3C4045"
+        android:ems="10"
+        android:inputType="date"
+        android:minHeight="48dp"
+        android:textColor="#9AFFFFFF" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginVertical="20dp"
+        android:outlineAmbientShadowColor="@color/white"
+        android:layout_below="@+id/editTextDateEnd"
+        android:background="?android:attr/listDivider" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="60dp"
+        android:backgroundTint="#B1B0B0"
+        android:shadowColor="#0E0E0E"
+        android:text="save"
+        android:textColor="@color/black"
+        android:textSize="23dp"
+        app:cornerRadius="15dp" />
+    
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editTextDate"
+        android:layout_above="@id/editTextDateEnd"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
+        android:text="PER"
+        android:textSize="20dp"/>
+
+</RelativeLayout>

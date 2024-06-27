@@ -1,0 +1,23 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_home"
+        android:icon="@drawable/ic_home"
+        android:title="Home" />
+    <item
+        android:id="@+id/prescription"
+        android:icon="@drawable/map_ico"
+        android:title="getWell map" />
+    <item
+        android:id="@+id/action_add"
+        android:icon="@drawable/add_ico"
+        android:title="Add" />
+    <item
+        android:id="@+id/action_account"
+        android:icon="@drawable/ic_account"
+        android:title="Account" />
+    <item
+        android:id="@+id/action_settings"
+        android:icon="@drawable/ic_settings"
+        android:title="Settings" />
+
+</menu>

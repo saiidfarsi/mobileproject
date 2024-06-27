@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_vertical"
+    android:background="@drawable/background"
+    android:orientation="vertical"
+    android:paddingTop="300dp"
+    android:paddingBottom="250dp"
+    tools:context=".MainActivity">
+
+    <EditText
+        android:id="@+id/usrnm"
+        android:layout_width="wrap_content"
+        android:layout_height="15dp"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:background="#72D9D9D9"
+        android:backgroundTintMode="add"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Username"
+        android:textAlignment="center"
+        android:textColor="#85F8F8F8" />
+
+    <EditText
+        android:id="@+id/pass"
+        android:layout_width="wrap_content"
+        android:layout_height="15dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_weight="1"
+        android:background="#72D9D9D9"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Password"
+        android:textAlignment="center"
+        android:textColor="#85FFFFFF" />
+
+    <Button
+        android:id="@+id/login"
+        android:layout_width="wrap_content"
+        android:layout_height="10dp"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:background="#2CB2B2"
+        android:text="Login"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"/>
+
+    <Button
+        android:id="@+id/register"
+        android:layout_width="wrap_content"
+        android:layout_height="10dp"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:background="#2CB2B2"
+        android:text="Don't have account?"
+        android:layout_marginTop="20dp"/>
+</LinearLayout>
