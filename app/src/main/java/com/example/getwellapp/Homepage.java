@@ -1,10 +1,12 @@
 package com.example.getwellapp;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -32,8 +34,13 @@ public class Homepage extends AppCompatActivity {
     //public String prescriptionHolder;
     BottomNavigationView nav;
     private ListView medicineListView;
-    private List<medicin> medicineList;
-    private MedicinAdapter medicineAdapter;
+    dbHelper databaseHelper;
+    ListView listView;
+    ArrayList<String> prescriptionList;
+    ArrayAdapter<String> adapter;
+
+    //private List<medicin> medicineList;
+    //private MedicinAdapter medicineAdapter;
 
 
 
@@ -49,11 +56,26 @@ public class Homepage extends AppCompatActivity {
         setContentView(R.layout.activity_homepage);
 
         nav=findViewById(R.id.bottom_navigation);
-        medicineListView = findViewById(R.id.medicineListView);
 
-        medicineList = new ArrayList<>();
-        medicineAdapter = new MedicinAdapter(this, medicineList);
-        medicineListView.setAdapter(medicineAdapter);
+        databaseHelper = new dbHelper(this);
+        listView = findViewById(R.id.medicineListView);
+        prescriptionList = new ArrayList<>();
+
+        loadPrescriptions();
+
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, prescriptionList);
+        listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(Homepage.this, MainActivity3.class);
+                intent.putExtra("prescriptionId", i + 1);
+                startActivity(intent);
+            }
+        });
+
+
 
         nav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -89,5 +111,17 @@ public class Homepage extends AppCompatActivity {
         });
 
 
+
+    }
+
+    private void loadPrescriptions() {
+        Cursor cursor = databaseHelper.getAllPrescriptions();
+        if (cursor.moveToFirst()) {
+            do {
+                String name = cursor.getString(1);
+                prescriptionList.add(name);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
     }
 }

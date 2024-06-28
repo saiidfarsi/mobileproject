@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,12 +23,16 @@ import java.util.List;
 
 public class MainActivity3 extends AppCompatActivity {
 
-    private Spinner spinner;
-    Button saveB;
+    private Spinner etFrequency;
+    Button btnSave;
     private ListView medicineListView;
     private Button addMedicineButton;
     private List<medicin> medicineList;
     private MedicinAdapter medicineAdapter;
+    dbHelper databaseHelper;
+    int prescriptionId;
+    EditText etName, etDose;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,49 +40,34 @@ public class MainActivity3 extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main3);
 
-        saveB = findViewById(R.id.button);
-        spinner = findViewById(R.id.editTextDateEnd);
+        databaseHelper = new dbHelper(this);
+        etName = findViewById(R.id.editTextText);
+        etDose = findViewById(R.id.editTextDate);
+        etFrequency = findViewById(R.id.editTextDateEnd);
+        btnSave = findViewById(R.id.button);
+
 
 
         String[] items = {"DAY", "MONTH", "WEEK", "YEAR", "HOUR"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, items);
-        spinner.setAdapter(adapter);
+        etFrequency.setAdapter(adapter);
 
 
-        saveB.setOnClickListener(new View.OnClickListener() {
+        prescriptionId = getIntent().getIntExtra("prescriptionId", -1);
+
+        btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity3.this);
-                builder.setTitle("Add Medicine");
+            public void onClick(View view) {
+                String name = etName.getText().toString();
+                String dose = etDose.getText().toString();
+                String frequency = etFrequency.getSelectedItem().toString();
 
-                View view = LayoutInflater.from(MainActivity3.this).inflate(R.layout.activity_main3, null);
-                builder.setView(view);
-
-                final EditText nameEditText = view.findViewById(R.id.editTextText);
-                final EditText amountTakenEditText = view.findViewById(R.id.editTextDate);
-                final Spinner frequencyEditText = view.findViewById(R.id.editTextDateEnd);
-
-                builder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        String name = nameEditText.getText().toString();
-                        String amountTaken = amountTakenEditText.getText().toString();
-                        String frequency = frequencyEditText.getSelectedItem().toString();
-
-                        medicin medicine = new medicin(name, amountTaken, frequency);
-                        medicineList.add(medicine);
-                        medicineAdapter.notifyDataSetChanged();
-                    }
-                });
-
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-
-                builder.show();
+                if (databaseHelper.addMedicine(prescriptionId, name, dose, frequency)) {
+                    Toast.makeText(MainActivity3.this, "Medicine added", Toast.LENGTH_SHORT).show();
+                    finish();
+                } else {
+                    Toast.makeText(MainActivity3.this, "Failed to add medicine", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
