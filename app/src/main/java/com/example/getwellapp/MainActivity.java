@@ -8,7 +8,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -39,24 +38,18 @@ public class MainActivity extends AppCompatActivity {
         sqLiteHelper = new dbHelper(this);
 
 
-        signUpButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, register2.class);
+        signUpButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, register2.class);
 
-                startActivity(intent);
-            }
+            startActivity(intent);
         });
 
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Calling EditText is empty or no method.
-                CheckEditTextStatus();
-                // Calling login method.
-                LoginFunction();
-            }
+        loginButton.setOnClickListener(view -> {
+            // Calling EditText is empty or no method.
+            CheckEditTextStatus();
+            // Calling login method.
+            LoginFunction();
         });
     }
 

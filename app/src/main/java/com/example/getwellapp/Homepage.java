@@ -1,51 +1,35 @@
 package com.example.getwellapp;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class Homepage extends AppCompatActivity {
 
-    //private String prescriptions[];
-    //public String prescriptionHolder;
+
     BottomNavigationView nav;
-    private ListView medicineListView;
     dbHelper databaseHelper;
+    RecyclerView recyclerView;
+    presAdapter adapter;
     ListView listView;
-    ArrayList<String> prescriptionList;
-    ArrayAdapter<String> adapter;
-
-    //private List<medicin> medicineList;
-    //private MedicinAdapter medicineAdapter;
 
 
 
 
-    //ListView list;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,13 +42,15 @@ public class Homepage extends AppCompatActivity {
         nav=findViewById(R.id.bottom_navigation);
 
         databaseHelper = new dbHelper(this);
-        listView = findViewById(R.id.medicineListView);
-        prescriptionList = new ArrayList<>();
+        recyclerView = findViewById(R.id.medicineListView);
 
-        loadPrescriptions();
 
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, prescriptionList);
-        listView.setAdapter(adapter);
+        List<listViewpress> prescriptionList = databaseHelper.getAllPrescriptions();
+
+        adapter = new presAdapter(prescriptionList, this);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
+
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -74,6 +60,8 @@ public class Homepage extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
 
 
 
@@ -114,14 +102,11 @@ public class Homepage extends AppCompatActivity {
 
     }
 
-    private void loadPrescriptions() {
-        Cursor cursor = databaseHelper.getAllPrescriptions();
-        if (cursor.moveToFirst()) {
-            do {
-                String name = cursor.getString(1);
-                prescriptionList.add(name);
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
+    protected void onResume() {
+        super.onResume();
+        List<listViewpress> prescriptionList = databaseHelper.getAllPrescriptions();
+        adapter = new presAdapter(prescriptionList, this);
+        recyclerView.setAdapter(adapter);
     }
+
 }

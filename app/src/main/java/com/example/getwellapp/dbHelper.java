@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class dbHelper extends SQLiteOpenHelper {
     static String DATABASE_NAME = "getWell";
@@ -36,7 +37,7 @@ public class dbHelper extends SQLiteOpenHelper {
         String userTable = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + "(" + TC_id + " INTEGER PRIMARY KEY AUTOINCREMENT, " + TC_name + " VARCHAR, " + TC_mail + " VARCHAR, " + TC_pass + " VARCHAR)";
         db.execSQL(userTable);
 
-        String presTable = "CREATE TABLE IF NOT EXISTS " + TABLE_pres + "(" + pres_id + " INTEGER PRIMARY KEY AUTOINCREMENT, " + TC_presName + " VARCHAR, " + TC_presSdate + " DATE, " + TC_presEdate + " DATE)";
+        String presTable = "CREATE TABLE IF NOT EXISTS " + TABLE_pres + "(" + pres_id + " INTEGER PRIMARY KEY AUTOINCREMENT, " + TC_presName + " VARCHAR, " + TC_presSdate + " TEXT, " + TC_presEdate + " TEXT)";
         db.execSQL(presTable);
 
         String medTable = "CREATE TABLE IF NOT EXISTS " + TABLE_medicines + "(" + med_id + " INTEGER PRIMARY KEY AUTOINCREMENT, "+
@@ -86,9 +87,25 @@ public class dbHelper extends SQLiteOpenHelper {
     }
 
     // Method to get all prescriptions
-    public Cursor getAllPrescriptions() {
+    public List<listViewpress> getAllPrescriptions() {
+        List<listViewpress> prescriptions = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
-        return db.rawQuery("SELECT * FROM " + TABLE_pres, null);
+        Cursor cursor = db.rawQuery("SELECT * FROM prescriptions", null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(0);
+                String name = cursor.getString(1);
+                String startDate = cursor.getString(2);
+                String endDate = cursor.getString(3);
+                prescriptions.add(new listViewpress(id, name, startDate, endDate));
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+
+        return prescriptions;
     }
 
     // Method to get medicines for a specific prescription

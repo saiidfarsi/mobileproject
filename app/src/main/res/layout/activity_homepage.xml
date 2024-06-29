@@ -14,7 +14,7 @@
         android:background="@drawable/ssss"
         app:menu="@menu/bottom_navigation_menu"/>
 
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/medicineListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

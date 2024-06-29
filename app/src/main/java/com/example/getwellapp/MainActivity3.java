@@ -25,10 +25,6 @@ public class MainActivity3 extends AppCompatActivity {
 
     private Spinner etFrequency;
     Button btnSave;
-    private ListView medicineListView;
-    private Button addMedicineButton;
-    private List<medicin> medicineList;
-    private MedicinAdapter medicineAdapter;
     dbHelper databaseHelper;
     int prescriptionId;
     EditText etName, etDose;
