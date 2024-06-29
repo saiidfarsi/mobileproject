@@ -40,7 +40,6 @@ public class Homepage extends AppCompatActivity {
         setContentView(R.layout.activity_homepage);
 
         nav=findViewById(R.id.bottom_navigation);
-
         databaseHelper = new dbHelper(this);
         recyclerView = findViewById(R.id.medicineListView);
 
@@ -52,14 +51,7 @@ public class Homepage extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(Homepage.this, MainActivity3.class);
-                intent.putExtra("prescriptionId", i + 1);
-                startActivity(intent);
-            }
-        });
+
 
 
 
@@ -98,9 +90,17 @@ public class Homepage extends AppCompatActivity {
         }
         });
 
-
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(Homepage.this, MainActivity3.class);
+                intent.putExtra("prescriptionId", i + 1);
+                startActivity(intent);
+            }
+        });
 
     }
+
 
     protected void onResume() {
         super.onResume();

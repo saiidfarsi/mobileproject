@@ -60,10 +60,19 @@ public class MainActivity3 extends AppCompatActivity {
 
                 if (databaseHelper.addMedicine(prescriptionId, name, dose, frequency)) {
                     Toast.makeText(MainActivity3.this, "Medicine added", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MainActivity3.this, Homepage.class);
                     finish();
                 } else {
                     Toast.makeText(MainActivity3.this, "Failed to add medicine", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mec = new Intent(MainActivity3.this, Homepage.class);
+                startActivity(mec);
             }
         });
     }

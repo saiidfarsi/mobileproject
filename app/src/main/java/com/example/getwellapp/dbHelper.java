@@ -90,7 +90,7 @@ public class dbHelper extends SQLiteOpenHelper {
     public List<listViewpress> getAllPrescriptions() {
         List<listViewpress> prescriptions = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM prescriptions", null);
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_pres, null);
 
         if (cursor.moveToFirst()) {
             do {
