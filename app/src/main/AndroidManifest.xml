@@ -12,9 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Getwellapp"
         tools:targetApi="32">
-        <activity
-            android:name=".AddPrescriptionActivity"
-            android:exported="false" />
+
         <activity
             android:name=".setting"
             android:exported="false" />
